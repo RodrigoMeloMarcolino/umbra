@@ -36,7 +36,7 @@ auth nenhuma (ADR 0008 do backend).
 - Multi-tenant: o tenant ativo vem da URL (`/app/[tenantSlug]`), nunca de estado global
   implícito — trocar de tenant é navegar.
 - Follow-up documentado: estratégia final de storage do token e silent-renew em iframe vs.
-  refresh token rotation, a fechar na task 04 (admin) com um spike real contra o Keycloak do
+  refresh token rotation, a fechar na fase 04 (auth e tenant shell) com um spike real contra o Keycloak do
   docker-compose.
 
 ## Rastreabilidade

@@ -11,7 +11,7 @@ por tenant.
 | 4 | Selecionar, acompanhar, cancelar e repetir uploads. | 3 | fila XHR, retry e previews limpos |
 | 5 | Editar alt/caption, publicar e destacar. | 4 | alt obrigatório e estado autoritativo |
 | 6 | Reordenar e remover com segurança. | 5 | foco, versão, rollback e `DELETING` |
-| 7 | Acessar gestão protegida. | task 04, 5–6 | roles, sessão e tenant cobertos |
+| 7 | Acessar gestão protegida. | fase 04 (auth e tenant shell), 5–6 | roles, sessão e tenant cobertos |
 | 8 | Ver prévia e galeria pública. | 3 | SSR, lightbox, fallbacks, imagens |
 | 9 | Propagar mudança editorial rapidamente. | 7–8 | handler e fallback testados |
 | 10 | Endurecer experiência. | 1–9 | a11y, E2E, desempenho, smoke real |

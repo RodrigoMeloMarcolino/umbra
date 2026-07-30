@@ -1,11 +1,25 @@
-# Fase 03 — Core do calendário (headless) + views
+# Fase 03 — Calendar Core (entregas A e B)
 
 Status: todo
 
 ## Objetivo
 
-Formalizar o calendário próprio conforme ADR 0003: core puro testado densamente + views
-Month/Week/Day, generalizando o que a fase 02 prototipou para o Month picker.
+Formalizar o calendário próprio conforme ADR 0003 em duas entregas, sem DOM no core: A atende o
+booking antes da conclusão da fase 02; B atende a agenda antes da fase 07.
+
+## Entrega A — picker para booking
+
+- Slot math de 15 min, conversões UTC ↔ timezone, range de mês e Month picker acessível.
+- Seleção de data/horário apenas sobre slots retornados pela API; DST e timezone ≠ browser
+  cobertos no core puro.
+- Entrada: fase 01.5; saída: fase 02 consome o picker sem protótipo paralelo.
+
+## Entrega B — agenda administrativa
+
+- Layout engine de overlap, Week/Day, semanas com DST, interação Pointer Events e snapping.
+- ARIA grid, teclado, live region, stories de overlap/DST/vazio/loading/readonly.
+- Entrada: fase 06 e contratos de agenda ainda podem estar em MSW; saída: fase 07 consome
+  Week/Day quando o gate Gnomon 07 abrir.
 
 ## Escopo
 
@@ -34,7 +48,8 @@ Month/Week/Day, generalizando o que a fase 02 prototipou para o Month picker.
 - [ ] Core sem imports de React/DOM (gate de lint ou teste de arquitetura simples).
 - [ ] Casos de DST documentados e verdes.
 - [ ] Stories publicadas para todos os estados relevantes.
-- [ ] Booking (fase 02) migrado para o Month view do core sem regressão.
+- [ ] Entrega A consumida pelo booking (fase 02) sem regressão.
+- [ ] Entrega B disponível para a agenda (fase 07) sem inventar dados de appointments.
 
 ## Notas de implementação
 
