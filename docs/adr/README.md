@@ -10,6 +10,8 @@
 | [0003](0003-calendario-proprio.md) | Calendário 100% próprio, core headless puro | Accepted |
 | [0004](0004-data-fetching-forms.md) | Server state (TanStack Query), URL state (nuqs), forms (RHF + Zod), MSW | Accepted |
 | [0005](0005-datas-temporal.md) | Temporal API via polyfill, isolada em `@/shared/lib/temporal` | Accepted |
+| [0006](0006-upload-xhr-fila-local.md) | Upload direto PUT pré-assinado via XHR, fila local e TanStack Query | Accepted |
+| [0007](0007-entrega-publica-cache-portfolio.md) | Entrega pública mediada, `next/image` e invalidação imediata do cache | Accepted |
 
 ## Convenção
 

@@ -11,6 +11,7 @@ Ordem de execução das fases. Cada fase só inicia com a anterior concluída. S
 | [03](03-calendario-core.md) | Core do calendário (headless) + views | todo | ADR 0003 |
 | [04](04-admin-agenda.md) | Admin: auth OIDC + agenda + appointments | todo | spec admin-panel, ADR 0002 |
 | [05](05-storybook-mvp-prototypes.md) | Contrato visual Storybook do MVP | doing | spec visual |
+| [05.5](05.5-tenant-portfolio.md) | Portfólio multi-tenant — refinamento e sequência | doing | docs portfolio, ADRs 0006–0007 |
 
 ## Ordem e dependências
 
@@ -25,6 +26,8 @@ Ordem de execução das fases. Cada fase só inicia com a anterior concluída. S
   sobem; MSW permanece como rede de segurança para testes.
 - Fases posteriores (a criar): 05 admin catálogo/colaboradores, 06 editor de disponibilidade,
   07 E2E + Lighthouse + hardening.
+- 05.5 é um workstream documental paralelo: não muda o checkpoint de protótipos e só integra
+  após as fundações pública/admin e Gnomon 07.5.
 
 ## Regras do roadmap
 
