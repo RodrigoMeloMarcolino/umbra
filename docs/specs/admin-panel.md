@@ -1,6 +1,7 @@
-# Spec — Painel administrativo (rascunho inicial)
+# Spec — Painel administrativo
 
-Status: draft (detalhar nas tasks 04+)
+Status: fatiada por contratos; auth/configuração implementáveis após gate de integração, agenda
+bloqueada pelo Gnomon 07
 Domínio de referência: `gnomon/docs/specs/multi-tenancy.md`, PRD backend §6.4, task 07.
 
 ## Objetivo
@@ -15,6 +16,18 @@ disponibilidade, membros); staff acompanha e gerencia a própria agenda.
   serviço ↔ calendário, editor de availability rules.
 - Fora: dashboards/métricas, edição de appointment, remarcação admin, exportações, convites
   por e-mail (MVP: adição direta), billing.
+
+## Disponibilidade de contrato e sequência
+
+- **Fase 04 — auth e tenant shell:** OIDC e `/v1/tenants` vêm do Gnomon 01; exige CORS,
+  configuração OIDC e tenant local determinístico.
+- **Fase 06 — configuração administrativa:** catálogo, colaboradores, calendários, atribuições e
+  availability rules vêm dos Gnomon 02–03; integrar após auth shell e schema congelado.
+- **Fase 07 — agenda:** appointments, customers, filtros, paginação e transições dependem do
+  gate Gnomon 07. Até ele, stories/MSW são somente contrato futuro, sem rota de produção.
+
+OpenAPI, quando publicado, substitui tipos duplicados. Até lá, schemas Zod e fixtures MSW
+versionados registram o casing e o envelope por rota; o frontend não presume conversão global.
 
 ## Atores
 
@@ -51,7 +64,9 @@ disponibilidade, membros); staff acompanha e gerencia a própria agenda.
 
 ## Impacto de contrato
 
-Consome rotas admin do PRD §9. Nenhum contrato novo.
+Não cria contrato. A configuração consome rotas disponíveis do PRD §9; agenda e customers só
+podem integrar após o gate Gnomon 07. CORS sem `PUT` é bloqueio explícito do portfólio, não da
+agenda, e segue registrado no gate 01.5.
 
 ## Estratégia de teste
 
@@ -59,8 +74,8 @@ Consome rotas admin do PRD §9. Nenhum contrato novo.
 - Componente (MSW): listagem com filtros; ações com 409; guard de sessão.
 - E2E: login mockado → agenda → cancelar appointment.
 
-## Critérios de aceite (a refinar na task 04)
+## Critérios de aceite (por task)
 
-- [ ] Guard OIDC funcional contra Keycloak do docker-compose.
-- [ ] Agenda semanal renderiza appointments e reflete cancelamento.
-- [ ] Matriz role → UI coberta por testes.
+- [ ] Fase 04: guard OIDC e seleção de tenant funcionam contra Keycloak do docker-compose.
+- [ ] Fase 06: configuração respeita schemas, roles e regras de disponibilidade.
+- [ ] Fase 07: agenda real renderiza appointments e reflete cancelamento após o gate Gnomon 07.

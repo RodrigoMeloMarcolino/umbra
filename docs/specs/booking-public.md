@@ -1,6 +1,6 @@
-# Spec — Booking público (rascunho inicial)
+# Spec — Booking público
 
-Status: draft (detalhar na task 02)
+Status: pronto para implementação integrada (gate de fundação de integração pendente)
 Domínio de referência: `gnomon/docs/specs/booking.md`, PRD backend §6.3 e §11.
 
 ## Objetivo
@@ -68,9 +68,16 @@ resumo lateral, mas não pode depender de uma ordem diferente nem esconder etapa
   corretamente (core do calendário).
 - Duplo clique no confirmar → um único POST (mesma chave + botão desabilitado no pending).
 
-## Impacto de contrato
+## Contratos disponíveis e gate
 
-Consome apenas rotas públicas do PRD §9. Nenhum contrato novo.
+Consome os contratos públicos já disponíveis no Gnomon: leitura do tenant/catálogo/calendários,
+`available-slots` e `POST /v1/public/tenants/{slug}/appointments`. A implementação usa API real
+desde o início; MSW reproduz esses contratos apenas nos testes.
+
+Antes do smoke real, a fase 01.5 deve congelar o casing por rota, validar CORS e preparar um
+tenant determinístico. Enquanto OpenAPI não existir, schemas Zod e fixtures MSW são o contrato
+temporário. Falha desses gates bloqueia a conclusão da integração, não autoriza transformar o
+fluxo de produção em mock.
 
 ## Estratégia de teste
 
@@ -79,12 +86,12 @@ Consome apenas rotas públicas do PRD §9. Nenhum contrato novo.
   mesma idempotency key (assert no handler MSW).
 - Responsivo: fluxo feliz validado em viewport mobile antes do desktop; desktop cobre a
   reorganização progressiva do mesmo fluxo.
-- E2E (Playwright, task posterior): caminho feliz contra MSW ou backend local.
+- E2E (Playwright, task 08): caminho feliz contra backend local determinístico.
 - a11y: wizard navegável por teclado; axe-core sem violações.
 
 ## Critérios de aceite (a refinar na task 02)
 
-- [ ] Fluxo completo feliz contra MSW, testado.
+- [ ] Fluxo completo feliz contra API local, com teste de componente MSW equivalente.
 - [ ] Fluxo completo usável em mobile e desktop, sem overflow horizontal ou conteúdo
       sobreposto.
 - [ ] 409 e 422 cobertos com comportamento visível correto.

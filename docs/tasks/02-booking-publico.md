@@ -1,11 +1,11 @@
-# Fase 02 — Booking público (contra MSW)
+# Fase 02 — Booking público integrado à API real
 
 Status: todo
 
 ## Objetivo
 
-Fluxo completo de guest booking em `/t/{tenantSlug}` funcionando contra MSW com contratos
-fiéis ao PRD §9, pronto para apontar para a API real quando as fases 02–04 do backend subirem.
+Fluxo completo de guest booking em `/t/{tenantSlug}` integrado desde o início aos endpoints
+públicos já disponíveis do Gnomon. MSW espelha esses contratos somente em testes.
 O fluxo deve ser implementado **mobile-first**: celular é o layout base e desktop é expansão
 progressiva do mesmo caminho.
 
@@ -21,7 +21,8 @@ progressiva do mesmo caminho.
   ordem lógica do wizard.
 - Api-client: rotas públicas, envelope de erro tipado, `Idempotency-Key` por intent, retry
   seguro, tratamento de `409` com invalidação de slots (TanStack Query).
-- MSW handlers das 5 rotas públicas + cenários de erro (409, 422, rede).
+- Integração real com tenant determinístico do compose local; handlers MSW equivalentes para
+  testes de componente e cenários de erro (409, 422, rede).
 - Metadata/OG da página pública; Lighthouse baseline.
 
 ## Fora de escopo
@@ -43,10 +44,13 @@ progressiva do mesmo caminho.
 - [ ] Spec de booking fora de draft e implementação fiel a ela.
 - [ ] Fluxo mobile-first validado em celular e desktop, sem overflow horizontal, texto
       sobreposto ou etapa indisponível por viewport.
-- [ ] Fluxo feliz e erros cobertos por testes de componente.
+- [ ] Fluxo feliz integrado à API local e erros cobertos por testes de componente com MSW.
 - [ ] Idempotência comprovada em teste (mesma chave por intent, nova chave por payload novo).
 - [ ] Lighthouse (local) sem regressões de a11y/SEO na página pública.
 
 ## Notas de implementação
 
-(preencher ao concluir)
+Entrada: fase 01.5 concluída e Calendar Core A disponível. Saída: smoke real de leitura, slots e
+booking idempotente; CORS, casing e tenant de desenvolvimento registrados. Se o ambiente ou
+contrato falhar, MSW continua como fallback de teste, mas a integração real não é declarada
+concluída.

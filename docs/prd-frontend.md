@@ -88,7 +88,8 @@ Atores e permissões detalhados no PRD do backend (§4 e §6). O front consome; 
 
 - Fundação: scaffold, tooling (ESLint/TS/Vitest), design tokens, CI básica.
 - Design system inicial sobre Base UI (shadcn/ui) + Storybook.
-- Booking público completo (RFF-01…RFF-05), primeiro contra MSW, depois contra a API real.
+- Booking público completo (RFF-01…RFF-05) integrado à API pública já disponível; MSW fica
+  restrito a testes e fallback contratual.
 - Core do calendário (headless) + views Month/Week/Day.
 - Admin: auth OIDC, agenda (week view), appointments (lista + ações), catálogo, colaboradores,
   disponibilidade (RFF-06…RFF-10).
@@ -108,16 +109,19 @@ Atores e permissões detalhados no PRD do backend (§4 e §6). O front consome; 
 
 ## 6. Dependências com o backend
 
-| Fase do backend | Contratos que o front consome |
-| --------------- | ----------------------------- |
-| 01 Identidade | OIDC realm `gnomon`, `GET/POST /v1/tenants` |
-| 02 Catálogo | offerings, collaborators, calendars, calendar_offerings |
-| 03 Disponibilidade | availability-rules, `available-slots` |
-| 04 Guest booking | `POST /v1/public/.../appointments` (idempotente) |
-| 07 Painel admin | appointments (lista/ações), customers |
+| Gate do backend | Contratos que o front consome | Estado para Umbra |
+| --------------- | ----------------------------- | ----------------- |
+| 01 Identidade | OIDC realm `gnomon`, `GET/POST /v1/tenants` | disponível; requer CORS e tenant local para auth shell |
+| 02 Catálogo | offerings, collaborators, calendars, calendar_offerings | disponível; configuração após auth shell |
+| 03 Disponibilidade | availability-rules, `available-slots` | disponível; alimenta booking e configuração |
+| 04 Guest booking | `POST /v1/public/.../appointments` (idempotente) | disponível; booking integra desde o início |
+| 07 Painel admin | appointments (lista/ações), customers | gate pendente; stories/MSW somente até contrato aceito |
+| 08 Cancelamento/remarcação público | token, cancelamento e remarcação | gate pendente; backlog estacionado |
+| 07.5 Portfólio | mídia, upload, galeria e invalidação | gate pendente; Storybook permitido, produção bloqueada |
 
-O front desenvolve contra **MSW** com contratos fiéis ao PRD §9 do backend até cada fase
-correspondente estar no ar; integração real contra o docker-compose do repo `gnomon`.
+Gates transversais: CORS (inclusive `PUT` para portfólio), casing JSON uniforme ou mapeado por
+rota, OpenAPI ou schemas Zod/fixtures temporários congelados, e tenant local determinístico para
+smoke. A sequência oficial e os fallbacks estão em `docs/tasks/frontend-implementation-sequence.md`.
 
 ## 7. Rastreabilidade
 
