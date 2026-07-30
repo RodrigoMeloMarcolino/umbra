@@ -1,0 +1,12 @@
+import type { Meta, StoryObj } from "@storybook/nextjs";
+import { CalendarSurfaces } from "@/features/calendar/prototypes/calendar-surfaces";
+const meta = { title: "Calendário/Superfícies técnicas", component: CalendarSurfaces, parameters: { layout: "fullscreen" } } satisfies Meta<typeof CalendarSurfaces>;
+export default meta; type Story = StoryObj<typeof meta>;
+export const MonthPicker: Story = { args: { surface: "month" } };
+export const WeekComOverlap: Story = { args: { surface: "week" } };
+export const DayKeyboard: Story = { args: { surface: "day" } };
+export const AvailabilityWeek: Story = { args: { surface: "availability" } };
+export const ReadonlyTimezoneDiferente: Story = { args: { surface: "week", readonly: true, timezone: "Europe/Lisbon" } };
+export const SemanaDST: Story = { args: { surface: "week", timezone: "America/New_York", dst: true } };
+export const Vazio: Story = { args: { state: "empty" } };
+export const Carregando: Story = { args: { state: "loading" } };

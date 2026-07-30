@@ -6,10 +6,11 @@ Ordem de execução das fases. Cada fase só inicia com a anterior concluída. S
 | Fase | Título | Status | Referência |
 | ---- | ------ | ------ | ---------- |
 | [00](00-fundacao.md) | Fundação técnica (scaffold, tooling, docs) | done | ADRs 0001, 0004, 0005 |
-| [01](01-design-system.md) | Design system + Storybook | todo | ADR 0001 |
+| [01](01-design-system.md) | Design system + Storybook | done | ADR 0001 |
 | [02](02-booking-publico.md) | Booking público (contra MSW) | todo | spec booking-public, ADRs 0003–0005 |
 | [03](03-calendario-core.md) | Core do calendário (headless) + views | todo | ADR 0003 |
 | [04](04-admin-agenda.md) | Admin: auth OIDC + agenda + appointments | todo | spec admin-panel, ADR 0002 |
+| [05](05-storybook-mvp-prototypes.md) | Contrato visual Storybook do MVP | doing | spec visual |
 
 ## Ordem e dependências
 

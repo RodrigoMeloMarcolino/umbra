@@ -1,0 +1,16 @@
+import type { Meta, StoryObj } from "@storybook/nextjs";
+import { fn } from "storybook/test";
+import { PublicBookingPrototype } from "@/features/booking/prototypes/public-booking-prototype";
+const meta = { title: "Booking Público/Wizard", component: PublicBookingPrototype, parameters: { layout: "fullscreen" }, args: { onComplete: fn() } } satisfies Meta<typeof PublicBookingPrototype>;
+export default meta; type Story = StoryObj<typeof meta>;
+export const ServicoMobile: Story = { parameters: { viewport: { defaultViewport: "mobile1" } } };
+export const Profissional: Story = { args: { initialStep: "calendar" } };
+export const Horarios: Story = { args: { initialStep: "datetime" } };
+export const DiaSemHorarios: Story = { args: { state: "empty" } };
+export const DadosComErro422: Story = { args: { initialStep: "customer", state: "validation_error" } };
+export const RevisaoSubmetendo: Story = { args: { initialStep: "review", state: "submitting" } };
+export const Conflito409: Story = { args: { state: "slot_unavailable" } };
+export const Confirmacao: Story = { args: { initialStep: "success" } };
+export const TenantInvalido: Story = { args: { state: "invalid_tenant" } };
+export const Carregando: Story = { args: { state: "loading" } };
+export const ErroRecuperavel: Story = { args: { state: "error" } };

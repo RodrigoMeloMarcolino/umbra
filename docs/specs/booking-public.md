@@ -9,6 +9,10 @@ Customer agenda um horário pelo link público do tenant (`/t/{tenantSlug}`) sem
 com o mínimo de atrito: escolhe serviço, calendário (colaborador) e horário, informa nome +
 telefone (+ e-mail opcional) e recebe confirmação.
 
+A experiência é **mobile-first**: o fluxo completo precisa funcionar confortavelmente em celular
+antes de receber enriquecimentos de desktop. Desktop pode reorganizar conteúdo em colunas e
+resumo lateral, mas não pode depender de uma ordem diferente nem esconder etapas essenciais.
+
 ## Escopo / não-escopo
 
 - Dentro: página do tenant (perfil, colaboradores, catálogo), wizard de booking, seleção de
@@ -57,6 +61,8 @@ telefone (+ e-mail opcional) e recebe confirmação.
 ## Edge cases
 
 - Refresh em qualquer passo → estado restaurado pela URL (nuqs), exceto dados do formulário.
+- Viewports mobile estreitas → sem overflow horizontal, alvos de toque adequados, textos sem
+  sobreposição e CTA principal sempre acessível no passo atual.
 - Dia sem disponibilidade / calendário sem regras → empty states claros.
 - Semana atravessada por DST na timezone do calendário → grade renderiza o dia de 23h/25h
   corretamente (core do calendário).
@@ -71,12 +77,16 @@ Consome apenas rotas públicas do PRD §9. Nenhum contrato novo.
 - Unit: máquina do wizard, formatação de preço, helpers de slot.
 - Componente (MSW): fluxo completo feliz; 409 → refetch; 422 → erros por campo; retry com
   mesma idempotency key (assert no handler MSW).
+- Responsivo: fluxo feliz validado em viewport mobile antes do desktop; desktop cobre a
+  reorganização progressiva do mesmo fluxo.
 - E2E (Playwright, task posterior): caminho feliz contra MSW ou backend local.
 - a11y: wizard navegável por teclado; axe-core sem violações.
 
 ## Critérios de aceite (a refinar na task 02)
 
 - [ ] Fluxo completo feliz contra MSW, testado.
+- [ ] Fluxo completo usável em mobile e desktop, sem overflow horizontal ou conteúdo
+      sobreposto.
 - [ ] 409 e 422 cobertos com comportamento visível correto.
 - [ ] Idempotency-Key estável por intent comprovada em teste.
 - [ ] LCP da página do tenant medido (Lighthouse em CI, quando configurado).
