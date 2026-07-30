@@ -63,6 +63,9 @@ Atores e permissões detalhados no PRD do backend (§4 e §6). O front consome; 
 
 - **RNFF-01** Booking público: LCP < 2,5s em 4G; página servida com SSR/ISR e bundle mínimo;
   Lighthouse (performance + a11y + SEO) monitorado em CI.
+- **RNFF-01a** Plataforma web **mobile-first**: o booking público e o painel admin devem ser
+  desenhados primeiro para celular e expandir progressivamente para desktop, sem overflow
+  horizontal, sobreposição de texto ou perda de funcionalidades entre viewports.
 - **RNFF-02** Acessibilidade WCAG 2.2 AA: primitivos Base UI, navegação por teclado no
   calendário, contraste validado, axe-core nos testes.
 - **RNFF-03** Instantes em UTC no transporte; conversão explícita via timezone IANA do
@@ -92,7 +95,8 @@ Atores e permissões detalhados no PRD do backend (§4 e §6). O front consome; 
   o produto futuro **Moonlight** e exigem desenho de consentimento/LGPD (customers têm PII
   global por telefone — ADR 0009 do backend). Ficha: `ephemeris/docs/products/moonlight.md`.
 - i18n formal (MVP em pt-BR, strings centralizadas para facilitar extração).
-- App mobile / PWA.
+- App mobile nativo / PWA instalável. A experiência web responsiva para mobile e desktop faz
+  parte do MVP.
 
 ## 6. Dependências com o backend
 

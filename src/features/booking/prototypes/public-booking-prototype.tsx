@@ -1,0 +1,59 @@
+"use client";
+
+import { useState } from "react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Clock, RefreshCw, Scissors } from "lucide-react";
+import { Badge } from "@/shared/ui/badge";
+import { Button } from "@/shared/ui/button";
+import { FeedbackPanel, EmptyState } from "@/shared/ui/prototype-patterns";
+import { Input } from "@/shared/ui/input";
+import { Textarea } from "@/shared/ui/textarea";
+
+export type BookingStep = "service" | "calendar" | "datetime" | "customer" | "review" | "success";
+export type BookingState = "ready" | "loading" | "empty" | "error" | "invalid_tenant" | "validation_error" | "slot_unavailable" | "submitting";
+export type BookingData = { tenantName: string; timezone: string; currencyCode: string; priceCents: number };
+const defaultData: BookingData = { tenantName: "Studio Sol Nascente", timezone: "America/Fortaleza", currencyCode: "BRL", priceCents: 8000 };
+const steps: BookingStep[] = ["service", "calendar", "datetime", "customer", "review"];
+const labels: Record<BookingStep, string> = { service: "Serviço", calendar: "Profissional", datetime: "Horário", customer: "Dados", review: "Revisar", success: "Confirmação" };
+const money = (cents: number, currency: string) => currency === "BRL" ? `R$ ${String(cents / 100).replace(".", ",")}` : `${currency} ${cents}`;
+
+function Choice({ selected, children, onClick }: { selected?: boolean; children: React.ReactNode; onClick: () => void }) {
+  return <button type="button" onClick={onClick} className={`min-h-16 rounded-xl border p-4 text-left transition hover:border-primary/60 focus-visible:ring-3 focus-visible:ring-ring/30 ${selected ? "border-primary bg-primary/10" : "bg-card"}`}>{children}</button>;
+}
+
+export function PublicBookingPrototype({ data = defaultData, state = "ready", initialStep = "service", onComplete }: { data?: BookingData; state?: BookingState; initialStep?: BookingStep; onComplete?: () => void }) {
+  const [step, setStep] = useState<BookingStep>(state === "slot_unavailable" ? "datetime" : initialStep);
+  const [selected, setSelected] = useState("Corte solar");
+  const index = steps.indexOf(step);
+  const next = () => setStep(steps[Math.min(index + 1, steps.length - 1)]!);
+  if (state === "invalid_tenant") return <main className="mx-auto grid min-h-screen max-w-xl place-items-center p-4"><FeedbackPanel kind="warning" title="Este link não está disponível" description="Confira o endereço ou peça um novo link ao negócio." /></main>;
+  if (state === "loading") return <main className="mx-auto max-w-3xl p-5"><div className="grid animate-pulse gap-5"><div className="h-24 rounded-2xl bg-muted" /><div className="h-80 rounded-2xl bg-muted" /></div></main>;
+  if (state === "error") return <main className="mx-auto grid min-h-screen max-w-xl place-items-center p-4"><FeedbackPanel title="Não carregamos os horários" description="Verifique sua conexão e tente novamente." /></main>;
+  if (state === "empty") return <main className="mx-auto max-w-xl p-4"><EmptyState title="Agenda sem horários" description="Não há horários disponíveis para este serviço neste momento." action={<Button>Escolher outro serviço</Button>} /></main>;
+  if (step === "success") return <main className="mx-auto grid min-h-screen max-w-xl place-items-center p-4"><section className="grid gap-4 rounded-2xl border bg-card p-6 text-center shadow-card"><CheckCircle2 className="mx-auto size-12 text-primary" /><h1 className="text-2xl font-semibold">Horário confirmado</h1><p className="text-muted-foreground">Corte solar com Lia Martins em 14 de julho, às 09:15.</p><Badge className="mx-auto">Appointment #AP-2026-0714</Badge></section></main>;
+  const title = step === "service" ? "Escolha um serviço" : step === "calendar" ? "Escolha quem atende" : step === "datetime" ? "Escolha data e horário" : step === "customer" ? "Seus dados" : "Revise seu agendamento";
+  const serviceName = (item: string) => item.split(" ·")[0] ?? "";
+
+  return (
+    <main className="min-h-screen px-4 py-5 sm:p-8">
+      <div className="mx-auto grid max-w-5xl gap-5">
+        <header className="flex items-center gap-3"><span className="grid size-11 place-items-center rounded-xl bg-primary text-primary-foreground"><Scissors /></span><div><p className="font-semibold">{data.tenantName}</p><p className="text-sm text-muted-foreground">Agendamento sem login</p></div></header>
+        <section aria-label="Progresso do agendamento"><p className="mb-2 text-sm font-medium">Etapa {index + 1} de 5 · {labels[step]}</p><ol className="grid grid-cols-5 gap-1">{steps.map((item, itemIndex) => <li key={item} className={`h-1.5 rounded-full ${itemIndex <= index ? "bg-primary" : "bg-muted"}`}><span className="sr-only">{labels[item]}</span></li>)}</ol></section>
+        {state === "slot_unavailable" ? <FeedbackPanel kind="warning" title="Este horário acabou de ser reservado" description="Atualizamos a agenda. Escolha outro horário para continuar." /> : null}
+        <section className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_18rem]">
+          <div className="rounded-2xl border bg-card p-5 shadow-card">
+            <h1 className="text-xl font-semibold">{title}</h1><p className="mt-1 text-sm text-muted-foreground">Horários exibidos em {data.timezone}.</p>
+            <div className="mt-5 grid gap-3">
+              {step === "service" ? ["Corte solar · 45 min", "Coloração aurora · 1h30"].map((item) => <Choice key={item} selected={selected.startsWith(serviceName(item))} onClick={() => setSelected(serviceName(item))}><b>{item}</b><span className="float-right text-primary">{item.startsWith("Corte") ? money(data.priceCents, data.currencyCode) : "R$ 160,00"}</span></Choice>) : null}
+              {step === "calendar" ? ["Lia Martins · Especialista em cortes", "Rafa Nogueira · Colorista"].map((item, itemIndex) => <Choice key={item} selected={itemIndex === 0} onClick={() => undefined}>{item}</Choice>) : null}
+              {step === "datetime" ? <><div className="grid grid-cols-7 gap-1 text-center text-sm">{"Seg Ter Qua Qui Sex Sáb Dom".split(" ").map((day) => <span key={day} className="p-1 text-muted-foreground">{day}</span>)}{[12, 13, 14, 15, 16, 17, 18].map((day) => <button key={day} type="button" className={`aspect-square rounded-lg ${day === 14 ? "bg-primary text-primary-foreground" : "hover:bg-muted"}`}>{day}</button>)}</div><div className="grid grid-cols-3 gap-2">{"09:00 09:15 09:30 10:00 10:15 14:00".split(" ").map((time) => <Choice key={time} selected={time === "09:15"} onClick={() => undefined}><Clock className="mr-1 inline size-4" />{time}</Choice>)}</div></> : null}
+              {step === "customer" ? <><label className="grid gap-1 text-sm font-medium">Nome<Input defaultValue="Marina Costa" /></label><label className="grid gap-1 text-sm font-medium">Telefone<Input defaultValue="(85) 99999-1212" aria-invalid={state === "validation_error"} />{state === "validation_error" ? <span className="text-sm text-destructive">Informe um telefone válido.</span> : null}</label><label className="grid gap-1 text-sm font-medium">E-mail <span className="font-normal text-muted-foreground">(opcional)</span><Input type="email" /></label><label className="grid gap-1 text-sm font-medium">Observações <span className="font-normal text-muted-foreground">(opcional)</span><Textarea /></label></> : null}
+              {step === "review" ? <dl className="grid gap-3 text-sm"><div>Serviço <b className="float-right">{selected}</b></div><div>Profissional <b className="float-right">Lia Martins</b></div><div>Horário <b className="float-right">14/07/2026 · 09:15</b></div><div>Preço <b className="float-right">{money(data.priceCents, data.currencyCode)}</b></div></dl> : null}
+            </div>
+          </div>
+          <aside className="grid content-start gap-3 rounded-2xl border border-primary/30 bg-primary/10 p-5"><h2 className="font-semibold">Seu horário</h2><p className="text-sm text-muted-foreground">{selected} · Lia Martins</p><p className="text-sm text-muted-foreground">14 de julho · 09:15</p><b>{money(data.priceCents, data.currencyCode)}</b></aside>
+        </section>
+        <footer className="flex justify-between gap-3"><Button variant="outline" disabled={index === 0} onClick={() => setStep(steps[index - 1]!)}><ArrowLeft /> Voltar</Button>{step === "review" ? <Button disabled={state === "submitting"} onClick={() => { setStep("success"); onComplete?.(); }}>{state === "submitting" ? <><RefreshCw className="animate-spin" /> Confirmando</> : "Confirmar agendamento"}</Button> : <Button onClick={next}>Continuar <ArrowRight /></Button>}</footer>
+      </div>
+    </main>
+  );
+}

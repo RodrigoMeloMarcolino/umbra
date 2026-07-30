@@ -1,0 +1,17 @@
+import type { Meta, StoryObj } from "@storybook/nextjs";
+import { AdminMvpPrototype } from "@/features/admin/prototypes/admin-mvp-prototype";
+const meta = { title: "Admin/MVP operacional", component: AdminMvpPrototype, parameters: { layout: "fullscreen" } } satisfies Meta<typeof AdminMvpPrototype>;
+export default meta; type Story = StoryObj<typeof meta>;
+export const RedirectKeycloak: Story = { args: { screen: "access" } };
+export const MultiplosTenants: Story = { args: { screen: "tenant" } };
+export const AgendaOwner: Story = { args: { screen: "agenda", role: "owner" } };
+export const AgendaStaffMobile: Story = { args: { screen: "agenda", role: "staff" }, parameters: { viewport: { defaultViewport: "mobile1" } } };
+export const AppointmentsPaginados: Story = { args: { screen: "appointments" } };
+export const CustomersAcessoNegado: Story = { args: { screen: "customers", role: "staff", state: "forbidden" } };
+export const Servicos: Story = { args: { screen: "services" } };
+export const Equipe: Story = { args: { screen: "team" } };
+export const Disponibilidade: Story = { args: { screen: "availability", role: "staff" } };
+export const MembrosOwner: Story = { args: { screen: "members", role: "owner" } };
+export const SettingsAdminReadonly: Story = { args: { screen: "settings", role: "admin" } };
+export const Conflito409: Story = { args: { screen: "appointments", state: "conflict" } };
+export const ErroRecuperavel: Story = { args: { screen: "agenda", state: "error" } };

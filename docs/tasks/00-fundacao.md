@@ -41,5 +41,9 @@ documentação SDD completa.
 - Next 16 (não 15): planejamento citava 15; scaffold usou a estável atual — registrado no
   ADR 0001.
 - shadcn "base-nova" usa Base UI (não Radix) — decisão consciente, ADR 0001 §5.
+- `tsconfig.json` mantém `jsx: "preserve"` para alinhar com o compilador do Next e evitar
+  diagnóstico falso do TS Server/VS Code sobre `react/jsx-runtime`.
+- `package.json` declara Node `>=20.9.0`, compatível com Next 16 e Vitest 4; Node 18 gera
+  falhas de runtime antes da suíte iniciar.
 - Vitest/jsdom lento em `/mnt/c` (drvfs WSL): ~75s por run de 3 testes. Avaliar rodar em
   filesystem nativo do WSL se virar dor real.
