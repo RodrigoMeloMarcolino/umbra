@@ -27,7 +27,9 @@ Dois objetivos:
 | Superfície | Rota | Atores | Autenticação |
 | ---------- | ---- | ------ | ------------ |
 | Booking público | `/t/{tenantSlug}` | Customer (guest) | nenhuma |
+| Portfólio público | `/t/{tenantSlug}` e `/t/{tenantSlug}/portfolio` | Customer (guest) | nenhuma |
 | Painel admin | `/app/{tenantSlug}` | Owner, Admin, Staff | Keycloak (OIDC) |
+| Gestão de portfólio | `/app/{tenantSlug}/portfolio` | Owner, Admin | Keycloak (OIDC) |
 
 Atores e permissões detalhados no PRD do backend (§4 e §6). O front consome; não redefine.
 
@@ -58,6 +60,10 @@ Atores e permissões detalhados no PRD do backend (§4 e §6). O front consome; 
   serviço ↔ calendário e regras semanais de disponibilidade (editor visual com drag).
 - **RFF-10** Staff vê apenas o próprio calendário: UI esconde rotas/ações fora do escopo
   (a autorização real é sempre da API).
+- **RFF-11** Owner/admin gerenciam imagens do portfólio: upload direto controlado, metadata,
+  publicação, destaque, ordem explícita e remoção; aguarda Gnomon 07.5.
+- **RFF-12** Guests veem prévia e galeria paginada; mudança editorial invalida cache com fallback
+  temporal; aguarda fundações públicas.
 
 ## 4. Requisitos não funcionais
 
@@ -97,6 +103,8 @@ Atores e permissões detalhados no PRD do backend (§4 e §6). O front consome; 
 - i18n formal (MVP em pt-BR, strings centralizadas para facilitar extração).
 - App mobile nativo / PWA instalável. A experiência web responsiva para mobile e desktop faz
   parte do MVP.
+- Implementação operacional do portfólio até que o contrato Gnomon 07.5 esteja aceito; o
+  refinamento documental e protótipos locais permanecem no escopo de planejamento.
 
 ## 6. Dependências com o backend
 
