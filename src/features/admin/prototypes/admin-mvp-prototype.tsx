@@ -1,6 +1,5 @@
 "use client";
-import { useState } from "react";
-import { CalendarDays, Menu, Plus, Settings, Users } from "lucide-react";
+import { CalendarDays, Menu, Plus } from "lucide-react";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Dialog, DialogPopup, DialogTitle, DialogTrigger } from "@/shared/ui/dialog";

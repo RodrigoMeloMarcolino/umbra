@@ -21,6 +21,6 @@ export function Pagination({ page = 1, total = 3 }: { page?: number; total?: num
   return <nav aria-label="Paginação" className="flex items-center justify-between gap-3"><Button variant="outline" disabled={page === 1}><ChevronLeft /> Anterior</Button><span className="text-sm text-muted-foreground">Página {page} de {total}</span><Button variant="outline" disabled={page === total}>Próxima <ChevronRight /></Button></nav>;
 }
 
-export function PrototypeCard({ title, description, children }: { title: string; description?: string; children: ReactNode }) {
-  return <Card><CardHeader><CardTitle>{title}</CardTitle>{description && <CardDescription>{description}</CardDescription>}</CardHeader><CardContent>{children}</CardContent></Card>;
+export function PrototypeCard({ title, description, children }: { title: string; description?: string; children?: ReactNode }) {
+  return <Card><CardHeader><CardTitle>{title}</CardTitle>{description && <CardDescription>{description}</CardDescription>}</CardHeader>{children && <CardContent>{children}</CardContent>}</Card>;
 }
