@@ -57,6 +57,8 @@
 
 :root {
   color-scheme: light;
+  --font-geist-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
   --background: oklch(0.985 0.018 91);
   --foreground: oklch(0.215 0.025 73);
   --card: oklch(0.997 0.008 91);

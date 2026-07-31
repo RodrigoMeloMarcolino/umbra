@@ -4,6 +4,7 @@ import { PublicBookingPrototype } from "@/features/booking/prototypes/public-boo
 const meta = { title: "Booking Público/Wizard", component: PublicBookingPrototype, parameters: { layout: "fullscreen" }, args: { onComplete: fn() } } satisfies Meta<typeof PublicBookingPrototype>;
 export default meta; type Story = StoryObj<typeof meta>;
 export const ServicoMobile: Story = { parameters: { viewport: { defaultViewport: "mobile1" } } };
+export const PrecoSobConsulta: Story = { args: { data: { tenantName: "Studio Sol Nascente", timezone: "America/Fortaleza", currencyCode: "BRL", priceCents: null } } };
 export const Profissional: Story = { args: { initialStep: "calendar" } };
 export const Horarios: Story = { args: { initialStep: "datetime" } };
 export const DiaSemHorarios: Story = { args: { state: "empty" } };

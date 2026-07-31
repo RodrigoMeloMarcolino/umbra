@@ -3,6 +3,7 @@ import { CalendarSurfaces } from "@/features/calendar/prototypes/calendar-surfac
 const meta = { title: "Calendário/Superfícies técnicas", component: CalendarSurfaces, parameters: { layout: "fullscreen" } } satisfies Meta<typeof CalendarSurfaces>;
 export default meta; type Story = StoryObj<typeof meta>;
 export const MonthPicker: Story = { args: { surface: "month" } };
+export const MonthPickerNarrow: Story = { args: { surface: "month" }, parameters: { viewport: { defaultViewport: "mobile1" } } };
 export const WeekComOverlap: Story = { args: { surface: "week" } };
 export const DayKeyboard: Story = { args: { surface: "day" } };
 export const AvailabilityWeek: Story = { args: { surface: "availability" } };
