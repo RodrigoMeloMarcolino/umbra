@@ -1,6 +1,6 @@
 # Task intermediária — Protótipos Storybook do MVP
 
-Status: doing
+Status: done
 
 ## Objetivo
 
@@ -23,25 +23,27 @@ Construir o contrato visual do MVP operacional com fixtures locais e stories int
   informação de disponibilidade não são apresentados como disponíveis.
 - O protótipo continua fixture-only: não há rota produtiva, API real, cálculo de slots ou regra
   de domínio dentro das stories.
-- Próximos gates: congelar a matriz de contratos com o Gnomon, implementar o core Temporal puro
-  da task 03A e substituir a grade demonstrativa do booking pela view aprovada.
 
-## Validação 2026-07-30
+## Validação final — 2026-08-20
 
+- A matriz visual permanece ativa e foi conferida contra 7 arquivos e 41 stories: design system,
+  booking, acesso/tenant, calendário e admin cobrem os estados de loading, vazio, erro, 409,
+  422, sucesso, readonly, role e mobile.
+- Smoke em `pnpm storybook`: componentes base e formulário RHF/Zod; booking mobile e seus estados;
+  Month Picker, Week/Day, disponibilidade, timezone e DST; e superfícies admin owner/staff,
+  acesso negado, conflito e erro recuperável. Teclado, foco de Dialog/Popover, nomes acessíveis,
+  reflow e ausência de overflow não apresentaram bloqueadores observáveis; o painel a11y foi usado
+  como inspeção, sem declaração formal de conformidade WCAG.
+- Os protótipos continuam fixture-only e não representam rota, integração produtiva, API real,
+  cálculo de slots ou regra de domínio.
 - `pnpm lint` ✔
 - `pnpm typecheck` ✔
-- `pnpm test` ✔ (2 arquivos, 5 testes)
-- `pnpm build-storybook` ✔ (warnings de tamanho de bundle do Storybook)
-- `pnpm build` ✔ após remover a dependência de rede de `next/font/google`; o layout usa stack local
-  do sistema até um arquivo de fonte versionado ser escolhido.
+- `pnpm test` ✔ (3 arquivos, 8 testes)
+- `pnpm build-storybook --output-dir /tmp/umbra-storybook-static` ✔ (somente warnings conhecidos
+  de tamanho de bundle do Storybook)
 
-## Riscos
+## Follow-ups
 
-Os contratos admin de appointments/customers ainda são fixtures de contrato futuro; nenhum deles
-é usado em produção.
-
-## Validação
-
-- TypeScript e ESLint executados com os binários locais antes da restauração de dependências.
-- `pnpm test` e `pnpm build-storybook` permanecem pendentes: o ambiente perdeu o binding Linux
-  de Rolldown e a reinstalação do `node_modules` não conclui dentro do limite do executor.
+- Contratos administrativos futuros de appointments/customers, que seguem como fixtures e não são
+  usados em produção.
+- Testes aprofundados de interação e a11y no hardening documentado.
