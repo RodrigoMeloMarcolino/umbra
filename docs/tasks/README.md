@@ -16,7 +16,7 @@ Detalhes, snapshot e fallback: [sequência de implementação](frontend-implemen
 | [03B](03-calendario-core.md) | Calendar Core B — week/day para agenda | todo | ADR 0003 |
 | [07](07-admin-agenda.md) | Agenda administrativa | todo (gate Gnomon 07) | spec admin-panel |
 | [08](08-hardening-mvp.md) | Hardening do MVP | todo | fluxos integrados |
-| [05](05-storybook-mvp-prototypes.md) | Contrato visual Storybook do MVP | doing | spec visual |
+| [05](05-storybook-mvp-prototypes.md) | Contrato visual Storybook do MVP | done | spec visual |
 | [05.5](05.5-tenant-portfolio.md) | Portfólio multi-tenant — refinamento e sequência | doing | docs portfolio, ADRs 0006–0007 |
 
 ## Ordem e dependências
