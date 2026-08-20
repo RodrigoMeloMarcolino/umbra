@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
+    "api:generate": "openapi-typescript ${GNOMON_OPENAPI_URL:-http://localhost:8080/v3/api-docs} -o src/shared/api/generated/gnomon.ts",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -49,6 +50,7 @@
     "eslint-config-next": "16.2.11",
     "jsdom": "^29.1.1",
     "msw": "^2.15.0",
+    "openapi-typescript": "^7.13.0",
     "storybook": "^10.5.5",
     "tailwindcss": "^4",
     "typescript": "^5",

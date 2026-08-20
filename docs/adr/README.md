@@ -1,7 +1,7 @@
 # Architecture Decision Records — Umbra
 
-Índice dos ADRs do frontend. Decisões de domínio/produto vivem nos ADRs do backend
-(`gnomon/docs/adr`); aqui vivem apenas decisões da camada web.
+Índice dos ADRs do frontend. Decisões futuras de domínio/produto vivem no novo backend
+(`gnomon/docs/adr`); `gnomon-mock` preserva o baseline da API `/v1` durante a transição.
 
 | ADR | Título | Status |
 | --- | ------ | ------ |
@@ -12,6 +12,7 @@
 | [0005](0005-datas-temporal.md) | Temporal API via polyfill, isolada em `@/shared/lib/temporal` | Accepted |
 | [0006](0006-upload-xhr-fila-local.md) | Upload direto PUT pré-assinado via XHR, fila local e TanStack Query | Accepted |
 | [0007](0007-entrega-publica-cache-portfolio.md) | Entrega pública mediada, `next/image` e invalidação imediata do cache | Accepted |
+| [0008](0008-transicao-gnomon-mock-node.md) | Transição compatível de `gnomon-mock` para Gnomon Node.js | Accepted |
 
 ## Convenção
 

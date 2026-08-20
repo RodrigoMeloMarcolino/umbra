@@ -1,0 +1,4 @@
+interface:
+  display_name: "Manual Frontend Learning"
+  short_description: "Preserve manual frontend practice"
+  default_prompt: "Use $manual-frontend-learning to guide this frontend task while keeping the implementation manual."

@@ -9,6 +9,7 @@ Detalhes, snapshot e fallback: [sequência de implementação](frontend-implemen
 | [00](00-fundacao.md) | Fundação técnica (scaffold, tooling, docs) | done | ADRs 0001, 0004, 0005 |
 | [01](01-design-system.md) | Design system + Storybook | done | ADR 0001 |
 | [01.5](01.5-contratos-integracao.md) | Contratos e fundação de integração | todo | gates CORS, casing, OpenAPI e ambiente local |
+| [01.6](01.6-transicao-gnomon-node.md) | Preparação da troca `gnomon-mock` → Gnomon Node.js | doing | ADR 0008 e runbook de migração |
 | [03A](03-calendario-core.md) | Calendar Core A — picker para booking | todo | ADR 0003 |
 | [02](02-booking-publico.md) | Booking público integrado à API real | todo | spec booking-public, Gnomon 01–04 |
 | [04](04-auth-tenant-shell.md) | Auth e tenant shell | todo | ADR 0002, Gnomon 01 |

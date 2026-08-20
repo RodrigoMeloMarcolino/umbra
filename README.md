@@ -1,8 +1,10 @@
 # Umbra
 
-Frontend do **Sun Catcher** — o SaaS de agendamento multi-tenant composto por `gnomon`
-([API](../gnomon)) + `umbra` (este web). **Umbra** é a sombra projetada pelo gnômon: a parte
-visível do relógio de sol. Registro central de ativos: [ephemeris](../ephemeris).
+Frontend do **Sun Catcher** — o SaaS de agendamento multi-tenant composto pelo novo `gnomon`
+([API Node.js](../gnomon)) + `umbra` (este web). A implementação Java anterior vive em
+[gnomon-mock](../gnomon-mock) como baseline executável da API `/v1` durante a transição.
+**Umbra** é a sombra projetada pelo gnômon: a parte visível do relógio de sol. Registro central
+de ativos: [ephemeris](../ephemeris).
 
 Duas superfícies:
 
@@ -45,6 +47,7 @@ Duas superfícies:
 - [ADRs](docs/adr/README.md)
 - [Specs](docs/specs/) — [booking público](docs/specs/booking-public.md) · [painel admin](docs/specs/admin-panel.md)
 - [Roadmap de tasks](docs/tasks/README.md)
+- [Migração para o Gnomon Node.js](docs/migrations/gnomon-node-transition.md)
 
-O backend e as decisões de produto vivem no repo `gnomon` (PRD, ADRs 0001–0017). O ADR 0018 do
-backend registra o nascimento deste repo.
+O novo backend e as futuras decisões de produto vivem no repo `gnomon`. O `gnomon-mock` mantém
+o contrato de referência até o cutover; o ADR 0008 documenta a transição.
