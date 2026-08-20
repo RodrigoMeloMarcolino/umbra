@@ -15,8 +15,10 @@ Resumo obrigatório:
    e [tasks](docs/tasks/README.md); continue a partir do último checkpoint válido.
 2. Depois de desenvolver: atualize o status da task, registre notas/riscos e crie ou atualize
    ADR se uma decisão mudou. **Nenhuma decisão arquitetural muda sem ADR.**
-3. O backend (repo `gnomon`) é a fonte da verdade do domínio: PRD, ADRs 0001–0017, specs de
-   booking/multi-tenancy. Divergências de contrato se resolvem lá, não aqui.
+3. O backend de produção (repo `gnomon`) é a fonte da verdade futura do domínio. Durante a
+   transição, `gnomon-mock` preserva o baseline executável da API `/v1`; divergências são
+   resolvidas pelo contrato canônico e pelo ADR 0008 deste repositório, nunca por suposição no
+   frontend.
 
 ---
 

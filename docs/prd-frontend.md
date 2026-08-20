@@ -1,7 +1,7 @@
 # PRD — Umbra (frontend do Gnomon)
 
-Versão: `0.1.1` (nomenclatura Sun Catcher/Moonlight)
-Data: 2026-07-23
+Versão: `0.1.2` (transição `gnomon-mock` → Gnomon Node.js)
+Data: 2026-08-19
 Status: aprovado para início da implementação
 
 ---
@@ -12,6 +12,10 @@ O **Umbra** é o frontend do **Sun Catcher** (SaaS de agendamento multi-tenant; 
 `gnomon`). O nome vem de *umbra*, a sombra que o gnômon projeta sobre o mostrador — a camada
 onde o tempo se torna visível. Registro central de ativos e convenção de nomes: repo
 `ephemeris`.
+
+Durante a reimplementação do backend, `gnomon-mock` preserva a API `/v1` Java usada no
+desenvolvimento e `gnomon` é o sucessor Node.js. O Umbra deve operar contra ambos por uma
+fronteira configurável e não pode depender do schema, ORM ou mecanismo interno de booking.
 
 Dois objetivos:
 
@@ -109,6 +113,10 @@ Atores e permissões detalhados no PRD do backend (§4 e §6). O front consome; 
 
 ## 6. Dependências com o backend
 
+A transição entre implementações é regida pelo ADR 0008 e pelo runbook
+`docs/migrations/gnomon-node-transition.md`. O OpenAPI e os cenários black-box devem permanecer
+equivalentes entre mock e sucessor antes de qualquer ambiente do Umbra mudar de backend.
+
 | Gate do backend | Contratos que o front consome | Estado para Umbra |
 | --------------- | ----------------------------- | ----------------- |
 | 01 Identidade | OIDC realm `gnomon`, `GET/POST /v1/tenants` | disponível; requer CORS e tenant local para auth shell |
@@ -125,6 +133,7 @@ smoke. A sequência oficial e os fallbacks estão em `docs/tasks/frontend-implem
 
 ## 7. Rastreabilidade
 
-- PRD do backend (`gnomon/docs/prd.md`) — produto e domínio.
+- PRD do backend sucessor (`gnomon/docs/prd.md`) — produto e domínio futuros.
+- PRD/contrato congelado (`gnomon-mock/docs/prd.md`) — baseline Java durante a transição.
 - ADR 0018 do backend — decisão do repo/stack deste frontend.
-- ADRs 0001–0005 deste repo — stack, auth, calendário, data-fetching, datas.
+- ADRs 0001–0008 deste repo — stack, auth, calendário, data-fetching, datas e transição.
